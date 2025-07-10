@@ -28,7 +28,13 @@ export const useStarships = () => {
       const { results, next, count } = response.body;
 
       const fullResults = await Promise.all(
-        results.map((entry) => getStarshipDetails(entry.url))
+        results.map(async (entry) => {
+          const ship = await getStarshipDetails(entry.url);
+          return {
+            ...ship,
+            url: entry.url,
+          };
+        })
       );
       const filteredByName = fullResults.filter((ship) =>
         ship.name.toLowerCase().startsWith(search.toLowerCase())
