@@ -14,6 +14,7 @@ export const starshipContract = c.router({
     responses: {
       200: z.object({
         count: z.number(),
+        next: z.string().nullable(),
         results: z.array(
           z.object({
             name: z.string(),
