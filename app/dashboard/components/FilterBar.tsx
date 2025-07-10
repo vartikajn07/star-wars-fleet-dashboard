@@ -1,5 +1,5 @@
 "use client";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import {
   searchQueryAtom,
   hyperdriveFilterAtom,
@@ -10,16 +10,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { Filter, Search } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const FilterBar = () => {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
   const [hyperdriveFilter, setHyperdriveFilter] = useAtom(hyperdriveFilterAtom);
   const [crewSizeFilter, setCrewSizeFilter] = useAtom(crewSizeFilterAtom);
   const [showFilters, setShowFilters] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="flex flex-col mb-6">
-      <div className="flex  justify-between items-center gap-4  ">
+      <div className="flex  justify-between items-center gap-4 ">
         {/*search inputt */}
         <div className="w-full md:w-1/3 flex items-center gap-3 px-4 py-2 bg-gray-200 rounded-md shadow-sm">
           <Search className="stroke-gray-400 w-5 h-5" />
@@ -31,13 +33,23 @@ export const FilterBar = () => {
             className="w-full outline-none"
           />
         </div>
-        <Button
-          variant="outline"
-          className={`${showFilters ? "bg-gray-200" : ""} cursor-pointer`}
-          onClick={() => setShowFilters((prev) => !prev)}
-        >
-          <Filter className="w-4 h-4" /> Filters
-        </Button>
+        <div className="flex items-center gap-5">
+          <Button
+            variant="outline"
+            className={`${showFilters ? "bg-gray-200" : ""} cursor-pointer`}
+            onClick={() => setShowFilters((prev) => !prev)}
+          >
+            <Filter className="w-4 h-4" /> Filters
+          </Button>
+          {/* compare */}
+          <Button
+            // disabled={toggleCompare.length > 2}
+            className="cursor-pointer"
+            onClick={() => router.push("/compare")}
+          >
+            Compare
+          </Button>
+        </div>
       </div>
       {showFilters && (
         <div className="flex gap-4 mt-4 w-full">
