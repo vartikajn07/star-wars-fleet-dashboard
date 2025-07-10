@@ -10,7 +10,6 @@ export default function DashboardPage() {
         <FilterBar />
         <StarshipTable />
       </div>
-
       <BackToTopButton />
     </main>
   );

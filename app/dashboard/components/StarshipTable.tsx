@@ -1,8 +1,11 @@
 "use client";
-
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useStarships } from "../hooks/useStarships";
+import {
+  selectedStarshipsAtom,
+  toggleStarshipSelectionAtom,
+} from "../../../lib/state/atoms";
 import {
   Table,
   TableBody,
@@ -11,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAtom, useSetAtom } from "jotai";
 
 export const StarshipTable = () => {
   const {
@@ -21,7 +25,8 @@ export const StarshipTable = () => {
     isLoading,
     isError,
   } = useStarships();
-
+  const [selectedStarships] = useAtom(selectedStarshipsAtom);
+  const toggleSelection = useSetAtom(toggleStarshipSelectionAtom);
   const { ref, inView } = useInView();
 
   //loading more starships
@@ -54,7 +59,14 @@ export const StarshipTable = () => {
         </TableHeader>
         <TableBody className="text-left">
           {starships.map((ship, i) => (
-            <TableRow key={ship.name + i}>
+            <TableRow
+              key={ship.name + i}
+              onClick={() => toggleSelection(ship)}
+              className={`
+    cursor-pointer transition-colors
+    ${selectedStarships.some((s) => s.url === ship.url) ? "bg-gray-100" : ""}
+  `}
+            >
               <TableCell>{ship.name}</TableCell>
               <TableCell>{ship.model}</TableCell>
               <TableCell>{ship.manufacturer}</TableCell>
