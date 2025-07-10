@@ -24,6 +24,7 @@ export const toggleStarshipSelectionAtom = atom(
 //compare atom
 export const compareSelectionAtom = atom<any[]>([]);
 
+//selecting starships for comparing
 export const toggleCompareSelectionAtom = atom(
   null,
   (get, set, starship: any) => {
@@ -48,3 +49,9 @@ export const hyperdriveFilterAtom = atom<HyperdriveFilter>(null);
 
 export type CrewSizeFilter = "1-5" | "6-50" | "50+" | null;
 export const crewSizeFilterAtom = atom<CrewSizeFilter>(null);
+
+//clear ships
+export const clearCompareSelectionAtom = atom(null, (_get, set) => {
+  set(selectedStarshipsAtom, []);
+  set(compareSelectionAtom, []);
+});

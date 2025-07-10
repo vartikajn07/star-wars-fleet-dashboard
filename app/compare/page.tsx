@@ -4,6 +4,7 @@ import {
   selectedStarshipsAtom,
   compareSelectionAtom,
   toggleCompareSelectionAtom,
+  clearCompareSelectionAtom,
 } from "../../lib/state/atoms";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,13 +22,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Star } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 export default function ComparePage() {
+  const router = useRouter();
   const [selectedStarships] = useAtom(selectedStarshipsAtom);
   const [compareSelection] = useAtom(compareSelectionAtom);
   const toggleCompare = useSetAtom(toggleCompareSelectionAtom);
+  const clearCompare = useSetAtom(clearCompareSelectionAtom);
   const [isOpen, setIsOpen] = useState(false);
 
   console.log(selectedStarships);
@@ -53,9 +57,16 @@ export default function ComparePage() {
 
   return (
     <div className="w-full h-screen px-16 py-20">
-      <div className=" flex flex-col items-center gap-10">
-        <h1 className="text-2xl font-bold">Compare Starships</h1>
+      <div className="relative flex flex-col items-center gap-16">
+        <Button
+          onClick={() => router.push("/dashboard")}
+          className="absolute left-2"
+          variant="outline"
+        >
+          <ArrowLeft /> Back to Dashboard
+        </Button>
 
+        <h1 className="text-2xl font-bold">Compare Starships</h1>
         {selectedStarships.length === 0 ? (
           <p>No starships selected yet. Go back to dashboard</p>
         ) : (
@@ -86,11 +97,25 @@ export default function ComparePage() {
             })}
           </div>
         )}
-        {compareSelection.length >= 2 && (
-          <Button onClick={() => setIsOpen(true)}>
-            Compare ({compareSelection.length})
-          </Button>
-        )}
+        <div className="flex gap-5">
+          {compareSelection.length >= 2 && (
+            <Button className="cursor-pointer" onClick={() => setIsOpen(true)}>
+              Compare ({compareSelection.length})
+            </Button>
+          )}
+          {selectedStarships.length > 0 && (
+            <Button
+              className={`cursor-pointer ${
+                selectedStarships.length === 0 ? "opacity-0" : "opacity-100"
+              }`}
+              variant="destructive"
+              onClick={clearCompare}
+            >
+              Clear All
+            </Button>
+          )}
+        </div>
+
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogContent className="w-[800px] max-w-none h-fit overflow-auto py-6">
             <DialogHeader>

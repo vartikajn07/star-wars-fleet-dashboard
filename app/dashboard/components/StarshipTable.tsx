@@ -81,7 +81,7 @@ export const StarshipTable = () => {
         {isFetchingNextPage
           ? "Incoming more fleets..."
           : hasNextPage
-          ? "Scroll down for more starships..."
+          ? ""
           : "This is the end of the fleet."}
       </div>
     </div>
