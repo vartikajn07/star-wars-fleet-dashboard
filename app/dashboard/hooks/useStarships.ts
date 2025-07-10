@@ -1,13 +1,22 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useAtomValue } from "jotai";
+import {
+  searchQueryAtom,
+  hyperdriveFilterAtom,
+  crewSizeFilterAtom,
+} from "@/lib/state/atoms";
 import { apiClient } from "@/lib/api/client";
+import { useDebounce } from "./useDebounce";
+import { getStarshipDetails } from "@/lib/utils/starshipCache";
 
-interface UseStarshipsProps {
-  search?: string;
-}
+export const useStarships = () => {
+  const rawSearch = useAtomValue(searchQueryAtom);
+  const search = useDebounce(rawSearch, 400);
+  const hyperdriveFilter = useAtomValue(hyperdriveFilterAtom);
+  const crewSizeFilter = useAtomValue(crewSizeFilterAtom);
 
-export const useStarships = ({ search }: UseStarshipsProps) => {
   return useInfiniteQuery({
-    queryKey: ["starships", search],
+    queryKey: ["starships", search, hyperdriveFilter, crewSizeFilter],
     initialPageParam: "1",
     queryFn: async ({ pageParam = "1" }) => {
       const response = await apiClient.getStarships({
@@ -19,17 +28,36 @@ export const useStarships = ({ search }: UseStarshipsProps) => {
       const { results, next, count } = response.body;
 
       const fullResults = await Promise.all(
-        results.map(async (entry) => {
-          const res = await fetch(entry.url);
-          const data = await res.json();
-          return data.result.properties;
-        })
+        results.map((entry) => getStarshipDetails(entry.url))
       );
+      const filteredByName = fullResults.filter((ship) =>
+        ship.name.toLowerCase().startsWith(search.toLowerCase())
+      );
+      const filteredResults = filteredByName.filter((ship) => {
+        const hyperdrive = parseFloat(ship.hyperdrive_rating);
+        const crew = parseInt(ship.crew.replace(/[^0-9]/g, ""), 10);
+
+        const matchesHyperdrive =
+          !hyperdriveFilter ||
+          (hyperdriveFilter === "<1.0" && hyperdrive < 1.0) ||
+          (hyperdriveFilter === "1.0-2.0" &&
+            hyperdrive >= 1.0 &&
+            hyperdrive <= 2.0) ||
+          (hyperdriveFilter === ">2.0" && hyperdrive > 2.0);
+
+        const matchesCrew =
+          !crewSizeFilter ||
+          (crewSizeFilter === "1-5" && crew >= 1 && crew <= 5) ||
+          (crewSizeFilter === "6-50" && crew >= 6 && crew <= 50) ||
+          (crewSizeFilter === "50+" && crew > 50);
+
+        return matchesHyperdrive && matchesCrew;
+      });
 
       return {
         count,
         next,
-        results: fullResults,
+        results: filteredResults,
       };
     },
     getNextPageParam: (lastPage) => {
