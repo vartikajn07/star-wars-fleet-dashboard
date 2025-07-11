@@ -1,5 +1,5 @@
 "use client";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import {
   searchQueryAtom,
   hyperdriveFilterAtom,
