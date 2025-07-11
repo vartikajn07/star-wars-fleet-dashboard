@@ -26,7 +26,7 @@ export const BackToTopButton = () => {
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white p-3 shadow-xl hover:bg-gray-800 transition-colors"
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white p-3 cursor-pointer transition-colors"
           aria-label="Back to top"
         >
           <ArrowUp className="w-5 h-5" />

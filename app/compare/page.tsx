@@ -34,7 +34,7 @@ export default function ComparePage() {
   const clearCompare = useSetAtom(clearCompareSelectionAtom);
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(selectedStarships);
+  // console.log(selectedStarships);
 
   //ratingss
   const getStarsFromRating = (rating: string) => {
@@ -56,21 +56,25 @@ export default function ComparePage() {
   };
 
   return (
-    <div className="w-full h-screen px-16 py-20">
-      <div className="relative flex flex-col items-center gap-16">
+    <div className="w-full h-screen lg:px-16 px-5 py-10 lg:py-20">
+      <div className="relative flex flex-col items-center lg:gap-16 gap-8">
         <Button
           onClick={() => router.push("/dashboard")}
-          className="absolute left-2"
+          className="absolute left-2 l"
           variant="outline"
         >
-          <ArrowLeft /> Back to Dashboard
+          <ArrowLeft />{" "}
+          <span className="lg:text-base lg:block hidden">
+            Back to Dashboard
+          </span>
         </Button>
-
-        <h1 className="text-2xl font-bold">Compare Starships</h1>
+        <h1 className="lg:text-2xl text-lg font-semibold">Compare Starships</h1>
         {selectedStarships.length === 0 ? (
-          <p>No starships selected yet. Go back to dashboard</p>
+          <h1 className="text-center">
+            No starships selected yet. Go back to dashboard
+          </h1>
         ) : (
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-16 gap-6">
             {selectedStarships.map((ship) => {
               const isSelected = compareSelection.some(
                 (s) => s.url === ship.url
@@ -97,7 +101,8 @@ export default function ComparePage() {
             })}
           </div>
         )}
-        <div className="flex gap-5">
+        {/* buttons */}
+        <div className="flex gap-5 mb-10 lg:mb-0">
           {compareSelection.length >= 2 && (
             <Button className="cursor-pointer" onClick={() => setIsOpen(true)}>
               Compare ({compareSelection.length})
@@ -115,11 +120,11 @@ export default function ComparePage() {
             </Button>
           )}
         </div>
-
+        {/* comparison dialog */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="w-[800px] max-w-none h-fit overflow-auto py-6">
+          <DialogContent className="lg:w-[800px] w-[95%] max-w-none h-fit overflow-auto lg:py-6 py-4 lg:px-0 ">
             <DialogHeader>
-              <DialogTitle className="mb-6 text-center">
+              <DialogTitle className="lg:mb-6 mb-3 text-center">
                 Comparison Overview
               </DialogTitle>
             </DialogHeader>

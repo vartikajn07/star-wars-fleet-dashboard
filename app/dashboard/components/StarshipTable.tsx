@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useAtom, useSetAtom } from "jotai";
+import { LoaderMain, Loader } from "./Loader";
 
 export const StarshipTable = () => {
   const {
@@ -36,17 +37,18 @@ export const StarshipTable = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  if (isLoading) return <p className="text-center">Loading more starships</p>;
-  if (isError) return <p className=" text-center">Failed to load starships.</p>;
+  if (isLoading) return <LoaderMain />;
+  if (isError)
+    return <p className="text-center">No results. Try refreshing this page</p>;
 
   const starships = data?.pages.flatMap((page) => page.results) ?? [];
 
   return (
-    <div className="overflow-x-auto">
-      <Table className="w-full items-center">
+    <div className="overflow-x-auto h-full">
+      <Table className="w-full  items-center">
         <TableHeader className="bg-gray-100">
-          <TableRow>
-            <TableHead className="text-lg font-semibold">Name</TableHead>
+          <TableRow className="hover:bg-none">
+            <TableHead className="text-lg font-semibold ">Name</TableHead>
             <TableHead className="text-lg font-semibold">Model</TableHead>
             <TableHead className="text-lg font-semibold">
               Manufacturer
@@ -64,7 +66,7 @@ export const StarshipTable = () => {
               onClick={() => toggleSelection(ship)}
               className={`
     cursor-pointer transition-colors
-    ${selectedStarships.some((s) => s.url === ship.url) ? "bg-gray-100" : ""}
+    ${selectedStarships.some((s) => s.url === ship.url) ? "bg-gray-300" : ""}
   `}
             >
               <TableCell>{ship.name}</TableCell>
@@ -77,12 +79,14 @@ export const StarshipTable = () => {
         </TableBody>
       </Table>
 
-      <div ref={ref} className="py-4 text-center text-base">
-        {isFetchingNextPage
-          ? "Incoming more fleets..."
-          : hasNextPage
-          ? ""
-          : "This is the end of the fleet."}
+      <div ref={ref} className="py-4 text-center text-sm text-green-400">
+        {isFetchingNextPage ? (
+          <Loader />
+        ) : hasNextPage ? (
+          ""
+        ) : (
+          "This is the end of the fleet."
+        )}
       </div>
     </div>
   );
