@@ -13,6 +13,7 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 - 🎨 **Responsive UI** built with TailwindCSS & shadcn/ui
 - ⚡️ Optimized with data caching and request debouncing
 - 💾 **State Persistence** using Jotai across navigation
+  
 
 ## 🛠️ Tech Stack
 
@@ -23,6 +24,7 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 - **Animation**: [Framer Motion](https://www.framer.com/motion/)
 - **API**: [SWAPI - Star Wars API](https://swapi.dev/)
 - **Icons/UX**: Lottie Loader, Custom Gradients, Star Ratings
+
 
 ## 🧪 Getting Started (Run Locally)
 
@@ -38,7 +40,7 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
    yarn dev
 4. Open http://localhost:3000 in your browser.
 
-###💡 Implementation Notes
+### 💡Implementation Notes
 1. The app uses @tanstack/react-query for data fetching with infinite scroll and caching.
 2. Filters and search queries are reactive — handled via Jotai atoms.
 3. Starships are fetched in pages, filtered on the client, and optimized to avoid unnecessary re-fetching.
@@ -51,5 +53,5 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 4. Built with accessibility and mobile responsiveness in mind
 
 ### 📦 Deployed on Vercel
-Check it out: star-wars-fleet-dashboard-teal.vercel.app
+Check it out:   [star-wars-fleet-dashboard-teal.vercel.app](https://star-wars-fleet-dashboard-teal.vercel.app/)
 
