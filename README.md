@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Star Wars Fleet Dashboard
 
-## Getting Started
+A sleek, responsive Star Wars starship dashboard built with **Next.js** and **SWAPI**.  
+Users can search, filter, and compare starships with a smooth UI and instant feedback.
 
-First, run the development server:
+## 🌌 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 🔍 **Search & Filter** starships by name, hyperdrive rating, and crew size
+- ♾️ **Infinite Scrolling** for smooth starship list loading
+- 🪄 **Starship Comparison Page** with interactive selection (up to 6), then choose 3 to compare side-by-side
+- 📈 **Visual Ratings** for hyperdrive via star indicators
+- 🧭 **Back to Top** functionality with Framer Motion
+- 🎨 **Responsive UI** built with TailwindCSS & shadcn/ui
+- ⚡️ Optimized with data caching and request debouncing
+- 💾 **State Persistence** using Jotai across navigation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 14 (App Router)](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: [Jotai](https://jotai.org/)
+- **Data Fetching**: [@tanstack/react-query](https://tanstack.com/query)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **API**: [SWAPI - Star Wars API](https://swapi.dev/)
+- **Icons/UX**: Lottie Loader, Custom Gradients, Star Ratings
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Getting Started (Run Locally)
 
-## Learn More
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/your-username/star-wars-fleet-dashboard.git
+   cd star-wars-fleet-dashboard
+2. Install dependencies:
+   ```bash
+   yarn
+3. Run dev server:
+   ```bash
+   yarn dev
+4. Open http://localhost:3000 in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+###💡 Implementation Notes
+1. The app uses @tanstack/react-query for data fetching with infinite scroll and caching.
+2. Filters and search queries are reactive — handled via Jotai atoms.
+3. Starships are fetched in pages, filtered on the client, and optimized to avoid unnecessary re-fetching.
+4. The compare page allows selecting up to 6 ships, then narrowing to 3 for side-by-side comparison in a responsive table.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Extras & Optimizations
+1. Debounced search input to avoid hammering the API
+2. Persistent global state via Jotai atoms — selection survives route changes
+3. Custom gradient background on landing page
+4. Built with accessibility and mobile responsiveness in mind
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📦 Deployed on Vercel
+Check it out: star-wars-fleet-dashboard-teal.vercel.app
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
