@@ -23,6 +23,7 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 - **Data Fetching**: [@tanstack/react-query](https://tanstack.com/query)
 - **Animation**: [Framer Motion](https://www.framer.com/motion/)
 - **API**: [SWAPI - Star Wars API](https://swapi.dev/)
+- **ts-rest**: for type-safe API interactions.
 - **Icons/UX**: Lottie Loader, Custom Gradients, Star Ratings
 
 
@@ -46,7 +47,7 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 3. Starships are fetched in pages, filtered on the client, and optimized to avoid unnecessary re-fetching.
 4. The compare page allows selecting up to 6 ships, then narrowing to 3 for side-by-side comparison in a responsive table.
 
-### Extras & Optimizations
+### ✨Extras & Optimizations
 1. Debounced search input to avoid hammering the API
 2. Persistent global state via Jotai atoms — selection survives route changes
 3. Custom gradient background on landing page
