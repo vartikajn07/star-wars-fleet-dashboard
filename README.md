@@ -31,10 +31,12 @@ Users can search, filter, and compare starships with a smooth UI and instant fee
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/your-username/star-wars-fleet-dashboard.git
+   git clone https://github.com/vartikajn07/star-wars-fleet-dashboard.git
    cd star-wars-fleet-dashboard
 2. Install dependencies:
    ```bash
+   yarn install
+   # or simply
    yarn
 3. Run dev server:
    ```bash
