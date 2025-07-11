@@ -122,7 +122,7 @@ export default function ComparePage() {
         </div>
         {/* comparison dialog */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="lg:w-[800px] w-[95%] max-w-none h-fit overflow-auto lg:py-6 py-4 lg:px-0 ">
+          <DialogContent className="lg:w-[800px] w-[95%] max-w-none h-fit overflow-auto lg:py-6 py-4 lg:px-6">
             <DialogHeader>
               <DialogTitle className="lg:mb-6 mb-3 text-center">
                 Comparison Overview

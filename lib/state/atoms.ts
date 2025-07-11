@@ -1,10 +1,19 @@
 import { atom } from "jotai";
 
-export const selectedStarshipsAtom = atom<any[]>([]);
+export interface Starship {
+  name: string;
+  model: string;
+  manufacturer: string;
+  crew: string;
+  hyperdrive_rating: string;
+  url: string;
+}
+
+export const selectedStarshipsAtom = atom<Starship[]>([]);
 //dashboard selecion
 export const toggleStarshipSelectionAtom = atom(
   null,
-  (get, set, starship: any) => {
+  (get, set, starship: Starship) => {
     const selected = get(selectedStarshipsAtom);
     const alreadySelected = selected.find((s) => s.url === starship.url);
 
@@ -22,12 +31,12 @@ export const toggleStarshipSelectionAtom = atom(
 );
 
 //compare atom
-export const compareSelectionAtom = atom<any[]>([]);
+export const compareSelectionAtom = atom<Starship[]>([]);
 
 //selecting starships for comparing
 export const toggleCompareSelectionAtom = atom(
   null,
-  (get, set, starship: any) => {
+  (get, set, starship: Starship) => {
     const current = get(compareSelectionAtom);
     const isSelected = current.find((s) => s.url === starship.url);
 
